@@ -8,12 +8,12 @@ function App() {
     const [filter, setFilter] = useState("All");
 
     const addTask = (text) => {
-        const newTask = { id: Date.now(), text, status: "Todo" };
+        const newTask = { id: crypto.randomUUID(), text, status: "Todo" };
         setTasks([newTask, ...tasks]);
     };
 
     const updateStatus = (id, newStatus) => {
-        setTasks([tasks.map(t => t.id === id ? {...t, status: newStatus} : t)]);
+        setTasks(tasks.map(t => t.id === id ? {...t, status: newStatus} : t));
     };
 
     const deleteTask = (id) => {
@@ -28,7 +28,7 @@ function App() {
         <div>
             <h1>Task Manager</h1>
             <AddTaskForm onAdd={addTask} />
-            <FilterBar current={filter} onChage={setFilter} />
+            <FilterBar current={filter} onChange={setFilter} />
             <TaskList
                 tasks={filteredTasks}
                 onUpdateStatus={updateStatus}
